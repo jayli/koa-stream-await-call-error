@@ -23,6 +23,8 @@ For example. When I want to print some messages one by one with a timmer. The fo
 
 The above code only gives us a one-time output. You should add 'stream.pipe(ctx.res)' before 'stream.push' by yourself to make it work. Or you can use the callback form without await to avoid this problem.
 
+Attention please. 'stream.pipe(response)' can be called only once before you putting msg to the pipe. When you use promise callback form, please delete 'stream.pipe(ctx.res)' call. Because koa2 has done it for you. ([koajs/koa/lib/application.js](https://github.com/koajs/koa/blob/master/lib/application.js#L267))
+
 Running [app.js](app.js):
 
     npm run start
