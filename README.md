@@ -1,4 +1,4 @@
-There are some subtleties to using stream with koa2 that can trip you if you are not careful.
+There are some abnormal behavior when using stream with koa2 if you are not careful.
 
 For example. When I want to print some messages one by one with a timmer. The following code does not work correctly as your wish.
 
@@ -23,13 +23,13 @@ For example. When I want to print some messages one by one with a timmer. The fo
 
 The above code only gives us a one-time output. You should add 'stream.pipe(ctx.res)' before 'stream.push' by yourself to make it work. Or you can use the callback form without await to avoid this problem.
 
-Attention please. When you use promise callback form, please delete 'stream.pipe(ctx.res)' call. Because koa2 has done it for you. ([koajs/koa/lib/application.js](https://github.com/koajs/koa/blob/master/lib/application.js#L267))
+Be careful. When you use promise callback form, please delete 'stream.pipe(ctx.res)' call. Because koa2 has done it for you. ([koajs/koa/lib/application.js](https://github.com/koajs/koa/blob/master/lib/application.js#L267)). So pipe(ctx.res) call and promise callback form shouldn't exist at the same time.
 
-Running [app.js](app.js):
+Take a look at the example by running [app.js](app.js):
 
     npm run start
 
-To see results:
+See results:
 
 - <http://localhost:3000/wtf_with_await>
 - <http://localhost:3000/fix_it_with_pipe_when_use_awai>
