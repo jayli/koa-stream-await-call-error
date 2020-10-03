@@ -32,5 +32,5 @@ Take a look at the example by running [app.js](app.js):
 See results:
 
 - <http://localhost:3000/wtf_with_await>
-- <http://localhost:3000/fix_it_with_pipe_when_use_awai>
+- <http://localhost:3000/fix_it_with_pipe_when_use_await>
 - <http://localhost:3000/work_well_with_callback>
