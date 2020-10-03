@@ -24,7 +24,7 @@ router.get('/work_well_with_callback',async (ctx)=>{
   stream._read = function () {};
 
   ctx.set({
-      'Content-Type': 'text/plan',
+      'Content-Type': 'text/undefined-content',
       'Transfer-Encoding': 'chunked'
   });
 
@@ -42,7 +42,7 @@ router.get('/wtf_with_await',async (ctx)=>{
   stream._read = function () {};
 
   ctx.set({
-      'Content-Type': 'text/plan',
+      'Content-Type': 'text/undefined-content',
       'Transfer-Encoding': 'chunked'
   });
 
@@ -59,10 +59,10 @@ router.get('/wtf_with_await',async (ctx)=>{
 router.get('/fix_it_with_pipe_when_use_await',async (ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
-  stream.pipe(ctx.res); // fix it
+  stream.pipe(ctx.res); // add a pipe() to fix it
 
   ctx.set({
-      'Content-Type': 'text/plan',
+      'Content-Type': 'text/undefined-content',
       'Transfer-Encoding': 'chunked'
   });
 
