@@ -27,7 +27,7 @@ http.createServer(async function (request, response) {
   stream.pipe(response);
 
   response.writeHead(200, {
-    'Content-Type': 'text/plan',
+    'Content-Type': 'text/undefined-content',
     'Transfer-Encoding': 'chunked'
   }).flushHeaders();
 
