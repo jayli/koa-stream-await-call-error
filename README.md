@@ -7,7 +7,7 @@ For example. When I want to print some messages one by one with a timmer. The fo
       stream._read = function () {};
 
       ctx.set({
-          'Content-Type': 'text/plan',
+          'Content-Type': 'text/undefined-type',
           'Transfer-Encoding': 'chunked'
       });
 
