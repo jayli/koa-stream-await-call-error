@@ -14,7 +14,7 @@ For example. When I want to print some messages one by one with a timmer. The fo
       ctx.res.flushHeaders();
       stream.push('begin Date() printing via timmer:\n\n');
 
-      await repeat(stream); // wait for some time
+      await repeat(stream); // print sth with timmer one by one
 
       stream.push('\nall done!\n');
       stream.push('\nWTF?~ There is only a one-time output!\n');
