@@ -19,7 +19,8 @@ function repeat(stream) {
   });
 }
 
-router.get('/work_well_with_callback',async (ctx)=>{
+// Work find with promise callback
+router.get('/work_fine_with_promise_callback',async (ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
 
@@ -37,6 +38,7 @@ router.get('/work_well_with_callback',async (ctx)=>{
   });
 });
 
+// Not work with await
 router.get('/wtf_with_await',async (ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
@@ -56,6 +58,7 @@ router.get('/wtf_with_await',async (ctx)=>{
   stream.push(null);
 });
 
+// fix it with pipe when using await
 router.get('/fix_it_with_pipe_when_use_await',async (ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
@@ -78,5 +81,12 @@ router.get('/fix_it_with_pipe_when_use_await',async (ctx)=>{
 
 app.use(router.routes()).use(router.allowedMethods());
 app.listen(3000);
+
+console.log(`
+See results:
+>  case 1: http://localhost:3000/work_fine_with_promise_callback
+>  case 2: http://localhost:3000/wtf_with_await
+>  case 3: http://localhost:3000/fix_it_with_pipe_when_use_await
+`);
 
 // vim:ts=2:sw=2:sts=2
