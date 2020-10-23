@@ -1,6 +1,6 @@
 There are some abnormal behavior when using stream with koa2 if you are not careful.
 
-For example. When I want to print some messages one by one with a timmer. The following code does not work correctly as your wish.
+For example. When I want to print some messages one by one with a timmer. The following code does not work exactly as your wish.
 
     router.get('/wtf_with_await',async (ctx)=>{
       var stream = ctx.body = new Readable();
@@ -14,7 +14,7 @@ For example. When I want to print some messages one by one with a timmer. The fo
       ctx.res.flushHeaders();
       stream.push('begin Date() printing via timmer:\n\n');
 
-      await repeat(stream);
+      await repeat(stream); // wait for some time
 
       stream.push('\nall done!\n');
       stream.push('\nWTF?~ There is only a one-time output!\n');
