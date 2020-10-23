@@ -21,7 +21,7 @@ For example. When I want to print some messages one by one with a timmer. The fo
       stream.push(null);
     });
 
-The above code only gives us a one-time output. You should add 'stream.pipe(ctx.res)' before 'stream.push' by yourself to make it work. Or you can use the callback form without await to avoid this problem.
+The above code only gives us a one-time output. You should add 'stream.pipe(ctx.res)' before 'stream.push' to make it work. Or you can use the callback form without await to avoid this problem.
 
 Be careful. When you use promise callback form, please delete 'stream.pipe(ctx.res)' call. Because koa2 has done it for you. ([koajs/koa/lib/application.js](https://github.com/koajs/koa/blob/master/lib/application.js#L267)). So pipe(ctx.res) call and promise callback form shouldn't exist at the same time.
 
