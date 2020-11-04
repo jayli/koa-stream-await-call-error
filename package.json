@@ -12,7 +12,8 @@
   "author": "拔赤",
   "dependencies": {
     "koa": "^2.13.0",
-    "koa-router": "^9.4.0"
+    "koa-router": "^9.4.0",
+    "mz-modules": "^2.1.0"
   },
   "devDependencies": {}
 }
