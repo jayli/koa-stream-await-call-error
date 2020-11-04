@@ -21,10 +21,10 @@ function repeat(stream) {
 }
 
 // streaming https://github.com/maxogden/mississippi
-router.get('/async_await_sleep', async (ctx) => {
+router.get('/fix_it_another_way_async_await_sleep', async (ctx) => {
   ctx.status = 200;
-  ctx.type = 'html';
-  ctx.respond = false;
+  ctx.type = 'text/undefined-content';
+  // ctx.respond = false;
   const res = ctx.res;
 
   res.write('begin Date() printing via timmer:\n\n');
@@ -36,24 +36,6 @@ router.get('/async_await_sleep', async (ctx) => {
   res.write('\nall done!\n');
   res.write('\nEvery thing is fine again!!\n');
   res.end(null);
-
-  // var stream = ctx.body = new Readable();
-  // stream._read = function () {};
-  // stream.pipe(ctx.res); // add a pipe() to fix it
-  //
-  // ctx.set({
-  //     'Content-Type': 'text/undefined-content',
-  //     'Transfer-Encoding': 'chunked'
-  // });
-  //
-  // ctx.res.flushHeaders();
-  // stream.push('begin Date() printing via timmer:\n\n');
-  //
-  // await repeat(stream);
-  //
-  // stream.push('\nall done!\n');
-  // stream.push('\nEvery thing is fine again!!\n');
-  // stream.push(null);
 });
 
 // Work find with promise callback
@@ -124,7 +106,7 @@ See results:
 >  case 1: http://localhost:3000/work_fine_with_promise_callback
 >  case 2: http://localhost:3000/wtf_with_await
 >  case 3: http://localhost:3000/fix_it_with_pipe_when_use_await
->  case 3: http://localhost:3000/async_await_sleep
+>  case 4: http://localhost:3000/fix_it_another_way_async_await_sleep
 `);
 
 // vim:ts=2:sw=2:sts=2
