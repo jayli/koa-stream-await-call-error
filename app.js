@@ -1,6 +1,7 @@
 const Readable = require('stream').Readable;
 const Koa = require('koa');
 const Router = require('koa-router');
+const sleep = require('mz-modules/sleep');
 const app = new Koa();
 const router = new Router();
 
@@ -18,6 +19,42 @@ function repeat(stream) {
     },500);
   });
 }
+
+// streaming https://github.com/maxogden/mississippi
+router.get('/async_await_sleep', async (ctx) => {
+  ctx.status = 200;
+  ctx.type = 'html';
+  ctx.respond = false;
+  const res = ctx.res;
+
+  res.write('begin Date() printing via timmer:\n\n');
+  for (let i = 0; i <= 10; i++) {
+    res.write(i + ': ' + Date());
+    res.write('\n');
+    await sleep(500);
+  }
+  res.write('\nall done!\n');
+  res.write('\nEvery thing is fine again!!\n');
+  res.end(null);
+
+  // var stream = ctx.body = new Readable();
+  // stream._read = function () {};
+  // stream.pipe(ctx.res); // add a pipe() to fix it
+  //
+  // ctx.set({
+  //     'Content-Type': 'text/undefined-content',
+  //     'Transfer-Encoding': 'chunked'
+  // });
+  //
+  // ctx.res.flushHeaders();
+  // stream.push('begin Date() printing via timmer:\n\n');
+  //
+  // await repeat(stream);
+  //
+  // stream.push('\nall done!\n');
+  // stream.push('\nEvery thing is fine again!!\n');
+  // stream.push(null);
+});
 
 // Work find with promise callback
 router.get('/work_fine_with_promise_callback',async (ctx)=>{
@@ -87,6 +124,7 @@ See results:
 >  case 1: http://localhost:3000/work_fine_with_promise_callback
 >  case 2: http://localhost:3000/wtf_with_await
 >  case 3: http://localhost:3000/fix_it_with_pipe_when_use_await
+>  case 3: http://localhost:3000/async_await_sleep
 `);
 
 // vim:ts=2:sw=2:sts=2
