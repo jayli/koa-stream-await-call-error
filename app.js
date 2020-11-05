@@ -20,35 +20,12 @@ function repeat(stream) {
   });
 }
 
-// streaming https://github.com/maxogden/mississippi
-router.get('/fix_it_another_way_async_await_sleep', async (ctx) => {
-  ctx.status = 200;
-  ctx.type = 'text/undefined-content';
-  // ctx.respond = false;
-  const res = ctx.res;
-
-  res.write('begin Date() printing via timmer:\n\n');
-  for (let i = 0; i <= 10; i++) {
-    res.write(i + ': ' + Date());
-    res.write('\n');
-    await sleep(500);
-  }
-  res.write('\nall done!\n');
-  res.write('\nEvery thing is fine again!!\n');
-  res.end(null);
-});
-
 // Work find with promise callback
-router.get('/work_fine_with_promise_callback',async (ctx)=>{
+router.get('/work_fine_with_promise_callback',(ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
+  ctx.type = 'text/undefined-content';
 
-  ctx.set({
-      'Content-Type': 'text/undefined-content',
-      'Transfer-Encoding': 'chunked'
-  });
-
-  ctx.res.flushHeaders();
   stream.push('begin Date() printing via timmer:\n\n');
   repeat(stream).then(() => {
     stream.push('\nall done!');
@@ -61,17 +38,10 @@ router.get('/work_fine_with_promise_callback',async (ctx)=>{
 router.get('/wtf_with_await',async (ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
+  ctx.type = 'text/undefined-content';
 
-  ctx.set({
-      'Content-Type': 'text/undefined-content',
-      'Transfer-Encoding': 'chunked'
-  });
-
-  ctx.res.flushHeaders();
   stream.push('begin Date() printing via timmer:\n\n');
-
   await repeat(stream);
-
   stream.push('\nall done!\n');
   stream.push('\nWTF?~ There is only a one-time output!\n');
   stream.push(null);
@@ -82,21 +52,30 @@ router.get('/fix_it_with_pipe_when_use_await',async (ctx)=>{
   var stream = ctx.body = new Readable();
   stream._read = function () {};
   stream.pipe(ctx.res); // add a pipe() to fix it
+  ctx.type = 'text/undefined-content';
 
-  ctx.set({
-      'Content-Type': 'text/undefined-content',
-      'Transfer-Encoding': 'chunked'
-  });
-
-  ctx.res.flushHeaders();
   stream.push('begin Date() printing via timmer:\n\n');
-
   await repeat(stream);
-
   stream.push('\nall done!\n');
   stream.push('\nEvery thing is fine again!!\n');
   stream.push(null);
 });
+
+// streaming https://github.com/maxogden/mississippi
+router.get('/fix_it_in_another_way_by_respond_false', async (ctx) => {
+  ctx.respond = false;
+  ctx.type = 'text/undefined-content';
+  const res = ctx.res;
+  
+  res.write('begin Date() printing via timmer:\n\n');
+  await repeat({
+    push: res.write.bind(res)
+  });
+  res.write('\nall done!\n');
+  res.write('\nEvery thing is fine again!!\n');
+  res.end(null);
+});
+
 
 app.use(router.routes()).use(router.allowedMethods());
 app.listen(3000);
