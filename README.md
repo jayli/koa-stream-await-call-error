@@ -29,3 +29,4 @@ See results:
 - <http://localhost:3000/work_fine_with_promise_callback>
 - <http://localhost:3000/wtf_with_await>
 - <http://localhost:3000/fix_it_with_pipe_when_use_await>
+- <http://localhost:3000/fix_it_another_way_async_await_sleep>
